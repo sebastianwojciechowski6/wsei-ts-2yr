@@ -30,6 +30,18 @@ class Board {
 
     }
 
+    clickOnComputerSign(x: number, y: number) {
+        if (this.cellsVisible[x][y].innerHTML == this.computerPlayer.sign) {
+            console.log("There is an computer's sign!");
+        }
+    }
+
+    clickOnHumanSign(x: number, y: number) {
+        if (this.cellsVisible[x][y].innerHTML == this.humanPlayer.sign) {
+            console.log('There is your sign!');
+        }
+    }
+
     clickCell(x: number, y: number) {
         let arrayIndexer: number = 1;
 
@@ -37,39 +49,23 @@ class Board {
         let cellPositionY: number = y - arrayIndexer;
 
         if (this.gameStarted) {
-            // Click on computer player's sign option.
-            if (this.cellsVisible[cellPositionX][cellPositionY].innerHTML == this.computerPlayer.sign) {
-                console.log("There is an computer's sign!");
-            }
+            this.clickOnComputerSign(cellPositionX, cellPositionY);
+            this.clickOnHumanSign(cellPositionX, cellPositionY);
+
+            this.cellsVisible[cellPositionX][cellPositionY].innerHTML == this.humanPlayer.sign;
+            this.cellsForPoints[cellPositionX][cellPositionY] = 1;
+
+            // Check if that move causes the win.
+
+            // Check if that move causes the draw.
             else {
-                // Click on human player's sign option.
-                if (this.cellsVisible[cellPositionX][cellPositionY].innerHTML == this.humanPlayer.sign) {
-                    console.log('There is your sign!');
+                if (this.checkDraw()) {
+                    this.gameStarted = false;
+                    alert("It's a draw!");
                 }
-                // Click on empty cell.
+                // Game is still on, human putted a sign, time for computer player.
                 else {
-                    // Write sign of human player to cell.
-                    this.cellsVisible[cellPositionX][cellPositionY].innerHTML == this.humanPlayer.sign;
-                    // Add 1 point to cells array.
-                    this.cellsForPoints[cellPositionX][cellPositionY] = 1;
-                    // Check if that move causes the win.
-                    if (this.checkWinner() == this.humanPlayer) {
-                        this.gameStarted = false;
-                        alert("Human Player has won!");
-                    }
-                    // Check if that move causes the draw.
-                    else {
-                        if (this.checkDraw()) {
-                            this.gameStarted = false;
-                            alert("It's a draw!");
-                        }
-                        // Game is still on, human putted a sign, time for computer player.
-                        else {
 
-
-
-                        }
-                    }
 
                 }
             }
@@ -77,8 +73,9 @@ class Board {
 
     }
 
-    threeEquality(a: HTMLTableCellElement, b: HTMLTableCellElement, c: HTMLTableCellElement) {
-        return (a == b && b == c && a.innerHTML != '')
+
+    minMax() {
+
     }
 
     checkDraw() {
@@ -92,7 +89,11 @@ class Board {
 
     }
 
-    checkWinner() {
+    threeEquality(a: HTMLTableCellElement, b: HTMLTableCellElement, c: HTMLTableCellElement) {
+        return (a == b && b == c && a.innerHTML != '')
+    }
+
+    whoIsTheWinner() {
         let winningSign: string;
 
         for (let i = 0; i < 3; i++) {    //Horizontal
@@ -153,5 +154,14 @@ function appStart() {
 
     let board: Board = new Board([[cell11, cell12, cell13], [cell21, cell22, cell23], [cell31, cell32, cell33]])
 
-    // cell11.addEventListener('click',)
+    cell11.addEventListener('click', () => board.clickCell(1, 1));
+    cell12.addEventListener('click', () => board.clickCell(1, 2));
+    cell13.addEventListener('click', () => board.clickCell(1, 3));
+    cell21.addEventListener('click', () => board.clickCell(2, 1));
+    cell22.addEventListener('click', () => board.clickCell(2, 2));
+    cell23.addEventListener('click', () => board.clickCell(2, 3));
+    cell31.addEventListener('click', () => board.clickCell(3, 1));
+    cell32.addEventListener('click', () => board.clickCell(3, 2));
+    cell33.addEventListener('click', () => board.clickCell(3, 3));
+
 }
