@@ -19,15 +19,14 @@ class Board {
 
     playerChecker(sign: string) {
         if (sign == 'X')
-            return 0;
-        else
             return 1;
+        else
+            return 2;
     }
 
-    startGame() {
+    setPlayers() {
         this.humanPlayer = new Player(this.playersRaffle());
         this.computerPlayer = new Player(this.playerChecker(this.humanPlayer.sign));
-
     }
 
     clickOnComputerSign(x: number, y: number) {
@@ -56,26 +55,29 @@ class Board {
             this.cellsForPoints[cellPositionX][cellPositionY] = 1;
 
             // Check if that move causes the win.
-
+            if (this.whoIsTheWinner() == this.humanPlayer) {
+                this.gameStarted = false;
+                alert("Human Player has won!");
+            }
             // Check if that move causes the draw.
+            else if (this.checkDraw()) {
+                this.gameStarted = false;
+                alert("It's a draw!");
+            }
+            // Game is still on, human putted a sign, time for computer player.
             else {
-                if (this.checkDraw()) {
-                    this.gameStarted = false;
-                    alert("It's a draw!");
-                }
-                // Game is still on, human putted a sign, time for computer player.
-                else {
-
-
-                }
+                // TODO MINMAX ALGORYTHM
+                // TODO COMPUTER'S TURN
             }
         }
-
+        else{
+            alert("Game over!");
+        }
     }
 
 
     minMax() {
-
+            // TODO
     }
 
     checkDraw() {
@@ -152,6 +154,11 @@ function appStart() {
     let cell33: HTMLTableCellElement
         = <HTMLTableCellElement>document.querySelector('#cell33');
 
+    let rollPlayers: HTMLButtonElement
+        = <HTMLButtonElement>document.querySelector('#rollButton');
+    let rollCommunicate: HTMLParagraphElement
+        = <HTMLParagraphElement>document.querySelector('#rollCommunicate');
+
     let board: Board = new Board([[cell11, cell12, cell13], [cell21, cell22, cell23], [cell31, cell32, cell33]])
 
     cell11.addEventListener('click', () => board.clickCell(1, 1));
@@ -163,5 +170,10 @@ function appStart() {
     cell31.addEventListener('click', () => board.clickCell(3, 1));
     cell32.addEventListener('click', () => board.clickCell(3, 2));
     cell33.addEventListener('click', () => board.clickCell(3, 3));
+
+    rollPlayers.addEventListener('click', () => {
+        board.setPlayers();
+        rollCommunicate.innerHTML = `You're player ${board.playerChecker(board.humanPlayer.sign)} and you steer ${board.humanPlayer.sign}`
+    });
 
 }
