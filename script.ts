@@ -18,7 +18,7 @@ class Board {
     }
 
     playerChecker(sign: string) {
-        if (sign == 'X')
+        if (sign == 'O')
             return 1;
         else
             return 2;
@@ -51,7 +51,8 @@ class Board {
             this.clickOnComputerSign(cellPositionX, cellPositionY);
             this.clickOnHumanSign(cellPositionX, cellPositionY);
 
-            this.cellsVisible[cellPositionX][cellPositionY].innerHTML == this.humanPlayer.sign;
+
+            this.cellsVisible[cellPositionX][cellPositionY].innerHTML = this.humanPlayer.sign;
             this.cellsForPoints[cellPositionX][cellPositionY] = 1;
 
             // Check if that move causes the win.
@@ -66,8 +67,95 @@ class Board {
             }
             // Game is still on, human putted a sign, time for computer player.
             else {
-                // TODO MINMAX ALGORYTHM
-                // TODO COMPUTER'S TURN
+                let possibilitiesX: number[];
+                let possibilitiesY: number[];
+
+                if(cellPositionX == 0 && cellPositionY == 0){
+                    possibilitiesX = [0, 1, 1];
+                    possibilitiesY = [1, 1, 0];
+
+                    do {
+                        cellPositionX = possibilitiesX[Math.floor(Math.random() * 2)];
+                        cellPositionY = possibilitiesY[Math.floor(Math.random() * 2)];
+                    }
+                    while(this.cellsForPoints[cellPositionX][cellPositionY] == 1);
+                }
+                if(cellPositionX == 0 && cellPositionY == 1){
+                    possibilitiesX = [0, 1, 0];
+                    possibilitiesY = [0, 1, 2];
+
+                    do {
+                        cellPositionX = possibilitiesX[Math.floor(Math.random() * 2)];
+                        cellPositionY = possibilitiesY[Math.floor(Math.random() * 2)];
+                    }
+                    while(this.cellsForPoints[cellPositionX][cellPositionY] == 1);
+                }
+                if(cellPositionX == 0 && cellPositionY == 2){
+                    possibilitiesX = [0, 1, 1];
+                    possibilitiesY = [1, 1, 2];
+
+                    do {
+                        cellPositionX = possibilitiesX[Math.floor(Math.random() * 2)];
+                        cellPositionY = possibilitiesY[Math.floor(Math.random() * 2)];
+                    }
+                    while(this.cellsForPoints[cellPositionX][cellPositionY] == 1);                }
+                if(cellPositionX == 1 && cellPositionY == 0){
+                    possibilitiesX = [0, 1, 2];
+                    possibilitiesY = [0, 1, 0];
+
+                    do {
+                        cellPositionX = possibilitiesX[Math.floor(Math.random() * 2)];
+                        cellPositionY = possibilitiesY[Math.floor(Math.random() * 2)];
+                    }
+                    while(this.cellsForPoints[cellPositionX][cellPositionY] == 1);                }
+                if(cellPositionX == 1 && cellPositionY == 1){
+                    possibilitiesX = [0, 1, 2];
+                    possibilitiesY = [0, 1, 2];
+
+                    do {
+                        cellPositionX = possibilitiesX[Math.floor(Math.random() * 2)];
+                        cellPositionY = possibilitiesY[Math.floor(Math.random() * 2)];
+                    }
+                    while(this.cellsForPoints[cellPositionX][cellPositionY] == 1);                }
+                if(cellPositionX == 1 && cellPositionY == 2){
+                    possibilitiesX = [0, 2, 1];
+                    possibilitiesY = [2, 1, 1];
+
+                    do {
+                        cellPositionX = possibilitiesX[Math.floor(Math.random() * 2)];
+                        cellPositionY = possibilitiesY[Math.floor(Math.random() * 2)];
+                    }
+                    while(this.cellsForPoints[cellPositionX][cellPositionY] == 1);                }
+                if(cellPositionX == 2 && cellPositionY == 0){
+                    possibilitiesX = [1, 1, 2];
+                    possibilitiesY = [0, 1, 1];
+
+                    do {
+                        cellPositionX = possibilitiesX[Math.floor(Math.random() * 2)];
+                        cellPositionY = possibilitiesY[Math.floor(Math.random() * 2)];
+                    }
+                    while(this.cellsForPoints[cellPositionX][cellPositionY] == 1);                }
+                if(cellPositionX == 2 && cellPositionY == 1){
+                    possibilitiesX = [2, 1, 1];
+                    possibilitiesY = [0, 1, 2];
+
+                    do {
+                        cellPositionX = possibilitiesX[Math.floor(Math.random() * 2)];
+                        cellPositionY = possibilitiesY[Math.floor(Math.random() * 2)];
+                    }
+                    while(this.cellsForPoints[cellPositionX][cellPositionY] == 1);                }
+                if(cellPositionX == 2 && cellPositionY == 2){
+                    possibilitiesX = [2, 1, 1];
+                    possibilitiesY = [1, 1, 2];
+
+                    do {
+                        cellPositionX = possibilitiesX[Math.floor(Math.random() * 2)];
+                        cellPositionY = possibilitiesY[Math.floor(Math.random() * 2)];
+                    }
+                    while(this.cellsForPoints[cellPositionX][cellPositionY] == 1);                }
+
+                this.cellsVisible[cellPositionX][cellPositionY].innerHTML = this.computerPlayer.sign;
+                this.cellsForPoints[cellPositionX][cellPositionY] = 1;
             }
         }
         else{
@@ -88,7 +176,6 @@ class Board {
             }
         }
         return true;
-
     }
 
     threeEquality(a: HTMLTableCellElement, b: HTMLTableCellElement, c: HTMLTableCellElement) {
@@ -98,19 +185,21 @@ class Board {
     whoIsTheWinner() {
         let winningSign: string;
 
-        for (let i = 0; i < 3; i++) {    //Horizontal
+        // Horizontal
+        for (let i = 0; i < 3; i++) {
             if (this.threeEquality(this.cellsVisible[i][0], this.cellsVisible[i][1], this.cellsVisible[i][2]))
                 winningSign = this.cellsVisible[i][0].innerHTML;
         }
-        for (let i = 0; i < 3; i++) {    //Vertical
-            if (this.threeEquality(this.cellsVisible[0][i], this.cellsVisible[0][i], this.cellsVisible[0][i]))
+        //Vertical
+        for (let i = 0; i < 3; i++) {
+            if (this.threeEquality(this.cellsVisible[0][i], this.cellsVisible[1][i], this.cellsVisible[2][i]))
                 winningSign = this.cellsVisible[0][i].innerHTML;
         }
         //Diagonal
         if (this.threeEquality(this.cellsVisible[0][0], this.cellsVisible[1][1], this.cellsVisible[2][2]))
             winningSign = this.cellsVisible[0][0].innerHTML;
-        if (this.threeEquality(this.cellsVisible[0][2], this.cellsVisible[1][1], this.cellsVisible[2][0]))
-            winningSign = this.cellsVisible[0][2].innerHTML;
+        if (this.threeEquality(this.cellsVisible[2][0], this.cellsVisible[1][1], this.cellsVisible[0][2]))
+            winningSign = this.cellsVisible[2][0].innerHTML;
 
         if (winningSign == this.humanPlayer.sign)
             return this.humanPlayer;
@@ -159,7 +248,7 @@ function appStart() {
     let rollCommunicate: HTMLParagraphElement
         = <HTMLParagraphElement>document.querySelector('#rollCommunicate');
 
-    let board: Board = new Board([[cell11, cell12, cell13], [cell21, cell22, cell23], [cell31, cell32, cell33]])
+    let board: Board = new Board([[cell11, cell12, cell13], [cell21, cell22, cell23], [cell31, cell32, cell33]]);
 
     cell11.addEventListener('click', () => board.clickCell(1, 1));
     cell12.addEventListener('click', () => board.clickCell(1, 2));
