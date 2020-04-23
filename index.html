@@ -2,41 +2,277 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tic Tac Toe</title>
-    <script src="script.js"></script>
-    <style>
-        body{
-            margin-left: 42%;
-            margin-top: 5%;
-        }
-        td {
-            border: 1px solid black;
-            padding: 15px;
-            padding-left: 30px;
-            padding-right: 30px;
-        }
-    </style>
+    <title>Battleships</title>
+    <script type="module" src="scripts/initializer.js"></script>
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-    <table>
-        <tr>
-            <td id="cell11">&nbsp;</td>
-            <td id="cell12">&nbsp;</td>
-            <td id="cell13">&nbsp;</td>
+<div class="tables_container">
+    <table id="player_grid">
+        <tr class="player_row">
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_ship battlefield_cell"></td>
         </tr>
-        <tr>
-            <td id="cell21">&nbsp;</td>
-            <td id="cell22">&nbsp;</td>
-            <td id="cell23">&nbsp;</td>
+        <tr class="player_row">
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_ship battlefield_cell"></td>
+            <td class="player_cell_ship battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_ship battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
         </tr>
-        <tr>
-            <td id="cell31">&nbsp;</td>
-            <td id="cell32">&nbsp;</td>
-            <td id="cell33">&nbsp;</td>
+        <tr class="player_row">
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+        </tr>
+        <tr class="player_row">
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_ship battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+        </tr>
+        <tr class="player_row">
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_ship battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+        </tr>
+        <tr class="player_row">
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_ship battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_ship battlefield_cell"></td>
+            <td class="player_cell_ship battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_ship battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+        </tr>
+        <tr class="player_row">
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_ship battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+        </tr>
+        <tr class="player_row">
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_ship battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_ship battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_ship battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_ship battlefield_cell"></td>
+        </tr>
+        <tr class="player_row">
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_ship battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_ship battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+        </tr>
+        <tr class="player_row">
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_ship battlefield_cell"></td>
+            <td class="player_cell_ship battlefield_cell"></td>
+            <td class="player_cell_ship battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
+            <td class="player_cell_empty battlefield_cell"></td>
         </tr>
     </table>
-
-    <button id="rollButton">Roll Players</button>
-    <h1 id="rollCommunicate"></h1>
+    <table id = "bot_grid">
+        <tr class="bot_row">
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+        </tr>
+        <tr class="bot_row">
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+        </tr>
+        <tr class="bot_row">
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+        </tr>
+        <tr class="bot_row">
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+        </tr>
+        <tr class="bot_row">
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+        </tr>
+        <tr class="bot_row">
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+        </tr>
+        <tr class="bot_row">
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+        </tr>
+        <tr class="bot_row">
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+        </tr>
+        <tr class="bot_row">
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+        </tr>
+        <tr class="bot_row">
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+            <td class="bot_cell_empty battlefield_cell"></td>
+        </tr>
+    </table>
+</div>
+<button id="generate_ships">Generate Ships</button>
 </body>
 </html>
