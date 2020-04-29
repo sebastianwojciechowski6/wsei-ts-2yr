@@ -1,18 +1,56 @@
-enum Ship {
-    Carrier = 5,
-    Battleship = 4,
-    Cruiser = 3,
-    Destroyer = 2
-}
+import {forEachResolvedProjectReference} from "ts-loader/dist/instances";
 
-class Player {
-    ships: number = 10;
+interface IShip {
     name: string;
-
-    constructor(name: string) {
-        this.name = name;
-    }
+    size: number;
+    turn: string;
 }
+
+class Carrier implements IShip {
+    name = 'Carrier';
+    size = 5;
+    turn = 'horizontally';
+}
+
+class Battleship implements IShip {
+    name = 'Battleship';
+    size = 4;
+    turn = 'horizontally';
+}
+
+class Cruiser implements IShip {
+    name = 'Cruiser';
+    size = 3;
+    turn = 'horizontally';
+}
+
+class Submarine implements IShip {
+    name = 'Submarine';
+    size = 3;
+    turn = 'horizontally';
+}
+
+class Destroyer implements IShip {
+    name = 'Destroyer';
+    size = 2;
+    turn = 'horizontally';
+}
+
+interface IPlayer {
+    ships: number;
+    name: string;
+}
+
+class Human implements IPlayer {
+    name = 'Human';
+    ships = 5;
+}
+
+class Bot implements IPlayer {
+    name = 'Bot';
+    ships = 5;
+}
+
 
 class Cell {
     posX: number;
@@ -31,21 +69,44 @@ class Cell {
 
 class Board {
     cells: Cell[][];
-    player: Player;
+    player: IPlayer;
 
-    constructor(player: Player, cells: Cell[][]) {
+    constructor(player: IPlayer, cells: Cell[][]) {
         this.player = player;
         this.cells = cells;
     }
 
+    turnShip(ship: IShip) {
+        let turn = Math.floor(Math.random() * 2);           // 0 = horyzontalnie, 1 = wertykalnie
+        if (turn == 1)
+            ship.turn = 'vertically'
+    }
 
-    private hit(horizontal: number, vertical: number) {
+    drawHumanShips(ships: IShip[]) {
+        ships.forEach(() => {
+            for (let i: number = 0; i < 10; i++) {
+                for (let j: number = 0; j < 10; j++) {
+
+                }
+            }
+        });
+    }
+
+    drawBotShips() {
+        for (let i: number = 0; i < 10; i++) {
+            for (let j: number = 0; j < 10; j++) {
+
+            }
+        }
+    }
+
+    hit(horizontal: number, vertical: number) {
         this.cells[horizontal][vertical].sunken == true;
         this.cells[horizontal][vertical].clicked == true;
         this.player.ships -= 1;
     }
 
-    private checkSpot(horizontal: number, vertical: number) {
+    checkSpot(horizontal: number, vertical: number) {
 
         if (this.cells[horizontal][vertical].clicked == true)
             console.log("You've already hit that spot")
@@ -65,8 +126,8 @@ class Board {
 
 class Game {
     finished: boolean;
-    bot: Player = new Player("Bot");
-    human: Player = new Player("Human");
+    bot: Bot = new Bot();
+    human: Human = new Human();
     tablesContainer: HTMLDivElement = document.querySelector('.tables_container');
 
     fillBoard(htmlBoard: HTMLTableElement, cellsBoard: Cell[][], rowClassName: string, cellClassName: string) {
@@ -116,17 +177,20 @@ class Game {
             }
         }
     }
-    endGame(winner: string){
+
+    endGame(winner: string) {
         alert(winner + 'winns!');
     }
-    nextRound(){
+
+    nextRound() {
 
     }
+
     roundChecker() {
-        if(this.bot.ships == 0)
+        if (this.bot.ships == 0)
             this.endGame(this.human.name);
 
-        else if(this.human.ships == 0)
+        else if (this.human.ships == 0)
             this.endGame(this.bot.name);
         else
             this.nextRound();
