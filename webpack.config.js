@@ -1,21 +1,22 @@
-module.exports = {
-    mode: 'development',
-    entry: {
-        initializer: './src/script/initializer.ts',
-        board: '.src/script/board.ts',
-        game: '.src/script/game.ts',
-        player: '.src/script/player.ts',
-        ship: '.src/script/ship.ts',
-        cell: '.src/script/cell.ts',
-    },
-    output: {
-        path: __dirname + '/dist',
-        filename: 'script.js'
-    },
+const path = require('path');
+const config = {
+    devtool: 'source-map',
+    entry: './src/script/Game.ts',
     module: {
         rules: [
-            { test: /\.css$/, use: 'css-loader' },
-            { test: /\.ts$/, use: 'ts-loader' }
-        ]
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
+        ],
+    },
+    resolve: {
+        extensions: [ '.tsx', '.ts', '.js' ],
+    },
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'bundle.js'
     }
 };
+module.exports = config;

@@ -18,7 +18,8 @@
   "homepage": "https://github.com/sebastianwojciechowski6/wsei-ts-2yr#readme",
   "devDependencies": {
     "css-loader": "^3.5.3",
-    "ts-loader": "^7.0.1",
+    "ts-loader": "^7.0.2",
+    "typescript": "^3.8.3",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
   }
