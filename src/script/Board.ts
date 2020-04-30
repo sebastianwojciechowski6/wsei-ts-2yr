@@ -17,7 +17,7 @@ export class Board {
             ship.turn = 'vertically';
     }
 
-    startingPointGenerator() {
+    positionGenerator() {
         let x: number = Math.floor(Math.random() * 10);
         let y: number = Math.floor(Math.random() * 10);
 

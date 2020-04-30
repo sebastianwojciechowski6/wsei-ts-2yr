@@ -7,7 +7,10 @@ import {IPlayer} from "./IPlayer";
 export class Game {
     finished: boolean;
     bot: Bot = new Bot();
+    botBoard: Board;
     human: Human = new Human();
+    humanBoard: Board;
+
     tablesContainer: HTMLDivElement = document.querySelector('.tables_container');
 
     fillBoard(htmlBoard: HTMLTableElement, cellsBoard: Cell[][], player: IPlayer, rowClassName: string, cellClassName: string) {
@@ -48,31 +51,38 @@ export class Game {
         this.tablesContainer.appendChild(humanHTMLBoard);
         this.tablesContainer.appendChild(botHTMLBoard);
 
-        let humanBoard: Board = new Board(this.human, humanCells);
-        let botBoard: Board = new Board(this.bot, botCells);
+        this.humanBoard = new Board(this.human, humanCells);
+        this.botBoard = new Board(this.bot, botCells);
+
     }
 
     endGame(winner: string) {
         alert(winner + 'winns!');
     }
 
-    nextRound() {
+    botRound() {
+        let x = this.humanBoard.positionGenerator()[0];
+        let y = this.humanBoard.positionGenerator()[1];
 
+        if (!this.humanBoard.cells[x][y].isClicked())
+            this.humanBoard.cells[x][y].shoot();
+        else
+            this.botRound();
     }
 
     roundChecker() {
-        if (this.bot.ships == 0)
+        if (this.bot.life == 0)
             this.endGame(this.human.name);
 
-        else if (this.human.ships == 0)
+        else if (this.human.life == 0)
             this.endGame(this.bot.name);
         else
-            this.nextRound();
+            this.botRound();
     }
 
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    let game: Game = new Game();
+    new Game();
 });
 
