@@ -30,7 +30,7 @@ export class Board {
         ships.forEach(() => {
             for (let i: number = 0; i < 10; i++) {
                 for (let j: number = 0; j < 10; j++) {
-
+                        //TODO
                 }
             }
         });
@@ -39,7 +39,7 @@ export class Board {
     drawBotShips() {
         for (let i: number = 0; i < 10; i++) {
             for (let j: number = 0; j < 10; j++) {
-
+                        //TODO
             }
         }
     }

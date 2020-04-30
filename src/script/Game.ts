@@ -27,7 +27,7 @@ export class Game {
                 cellHTML.className = cellClassName;
                 rowHTML.appendChild(cellHTML);
 
-                let tempCell: Cell = new Cell(cellHTML, i, j, player);
+                let tempCell: Cell = new Cell(this, cellHTML, i, j, player);
                 tempArray.push(tempCell);
             }
             cellsBoard.push(tempArray);
