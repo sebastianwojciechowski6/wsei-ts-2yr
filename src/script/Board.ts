@@ -3,7 +3,7 @@ import {IShip} from "./IShip";
 import {Cell} from "./Cell";
 
 export class Board {
-    cells: Cell[][];
+    cells: Cell[][] = [];
     player: IPlayer;
 
     constructor(player: IPlayer, cells: Cell[][]) {
@@ -14,7 +14,7 @@ export class Board {
     turnShipGenerator(ship: IShip) {
         let turn: number = Math.floor(Math.random() * 2);
         if (turn == 1)
-            ship.turn = 'vertically';
+            ship.turn = 'vertical';
     }
 
     positionGenerator() {
@@ -26,21 +26,38 @@ export class Board {
         return startingPoint;
     }
 
-    drawHumanShips(ships: IShip[]) {
-        ships.forEach(() => {
-            for (let i: number = 0; i < 10; i++) {
-                for (let j: number = 0; j < 10; j++) {
-                        //TODO
-                }
-            }
-        });
+    fillVerticalCells(x: number, y: number, size: number){
+        for(let i = x; i < (x + size); i++){
+            console.log(i);
+            this.cells[i][y].fill = true;
+        }
     }
 
-    drawBotShips() {
-        for (let i: number = 0; i < 10; i++) {
-            for (let j: number = 0; j < 10; j++) {
-                        //TODO
-            }
+    fillHorizontalCells(x: number, y: number, size: number){
+        for(let i = x; i < (y + size); i++){
+            this.cells[x][i].fill = true;
         }
+    }
+
+    insertShips(ships: IShip[]) {
+        ships.forEach((e) => {
+            this.turnShipGenerator(e);
+            let startingPoint: Array<number> = this.positionGenerator();
+
+            if(e.turn == 'vertical'){
+                while(startingPoint[0] + e.size >= 10){
+                    startingPoint = this.positionGenerator();
+                }
+
+                this.fillVerticalCells(startingPoint[0], startingPoint[1], e.size);
+            }
+            else{
+                while(startingPoint[1] + e.size >= 10){
+                    startingPoint = this.positionGenerator();
+                }
+
+                this.fillHorizontalCells(startingPoint[0], startingPoint[1], e.size);
+            }
+        });
     }
 }

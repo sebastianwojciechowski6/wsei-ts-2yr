@@ -3,6 +3,6 @@ import {IShip} from "../IShip";
 export class Carrier implements IShip {
     name = 'Carrier';
     size = 5;
-    turn = 'horizontally';
+    turn = 'horizontal';
     sunken = false;
 }

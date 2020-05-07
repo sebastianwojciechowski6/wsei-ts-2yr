@@ -3,6 +3,6 @@ import {IShip} from "../IShip";
 export class Submarine implements IShip {
     name = 'Submarine';
     size = 3;
-    turn = 'horizontally';
+    turn = 'horizontal';
     sunken = false;
 }

@@ -12,6 +12,7 @@ export class Game {
     humanBoard: Board;
 
     tablesContainer: HTMLDivElement = document.querySelector('.tables_container');
+    generateShipsButton: HTMLButtonElement = document.querySelector('#generate_ships');
 
     fillBoard(htmlBoard: HTMLTableElement, cellsBoard: Cell[][], player: IPlayer, rowClassName: string, cellClassName: string) {
         for (let i: number = 0; i < 10; i++) {
@@ -37,6 +38,14 @@ export class Game {
     constructor() {
         this.finished = false;
 
+        this.generateShipsButton.addEventListener('click', () => {
+            this.humanBoard.insertShips(this.human.ships);
+            this.botBoard.insertShips(this.bot.ships);
+
+            this.fillBoard(humanHTMLBoard, humanCells, this.human, 'player_row', 'player_cell_empty');
+            this.fillBoard(botHTMLBoard, botCells, this.bot, 'bot_row', 'bot_cell_empty');
+        });
+
         let humanCells: Cell[][] = [];
         let humanHTMLBoard: HTMLTableElement = document.createElement('table');
         humanHTMLBoard.id = 'player_grid';
@@ -45,15 +54,13 @@ export class Game {
         let botHTMLBoard: HTMLTableElement = document.createElement('table');
         botHTMLBoard.id = 'bot_grid';
 
-        this.fillBoard(humanHTMLBoard, humanCells, this.human, 'player_row', 'player_cell_empty');
-        this.fillBoard(botHTMLBoard, botCells, this.bot, 'bot_row', 'bot_cell_empty');
-
-        this.tablesContainer.appendChild(humanHTMLBoard);
-        this.tablesContainer.appendChild(botHTMLBoard);
-
         this.humanBoard = new Board(this.human, humanCells);
         this.botBoard = new Board(this.bot, botCells);
 
+
+
+        this.tablesContainer.appendChild(humanHTMLBoard);
+        this.tablesContainer.appendChild(botHTMLBoard);
     }
 
     endGame(winner: string) {
