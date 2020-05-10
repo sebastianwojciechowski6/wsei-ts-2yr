@@ -38,8 +38,12 @@ export class Cell {
     hit() {
         this.clicked = true;
         this.sunken = true;
-        this.element.classList.add('battlefield_cell_hit');
+        this.element.className = 'battlefield_cell_hit';
         this.player.life -= 1;
+        if (this.player.name == 'Human') {
+            window.setTimeout(() => this.game.botRound(), 300);
+        } else
+            this.shoot();
     }
 
     miss() {
@@ -53,7 +57,13 @@ export class Cell {
                 this.hit();
             } else {
                 this.miss();
+                if (this.player.name == 'Bot')
+                    window.setTimeout(() => this.game.botRound(), 300);
             }
+        }
+        else{
+            if (this.player.name == 'Human')
+                this.game.botRound();
         }
     }
 }

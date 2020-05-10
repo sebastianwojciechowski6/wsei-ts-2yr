@@ -51,16 +51,16 @@ export class Game {
         this.tablesContainer.appendChild(botHTMLBoard);
 
         this.generateShipsButton.addEventListener('click', () => {
-            this.humanBoard.insertShips(this.human.ships);
-            this.botBoard.insertShips(this.bot.ships);
-
             this.fillBoard(humanHTMLBoard, this.humanBoard.cells, this.human, 'player_row', 'player_cell_empty');
             this.fillBoard(botHTMLBoard, this.botBoard.cells, this.bot, 'bot_row', 'bot_cell_empty');
+
+            this.humanBoard.insertShips(this.human.ships);
+            this.botBoard.insertShips(this.bot.ships);
         });
     }
 
     endGame(winner: string) {
-        alert(winner + 'wins!');
+        alert(winner + ' won!');
     }
 
     botRound() {
@@ -79,8 +79,6 @@ export class Game {
 
         else if (this.human.life == 0)
             this.endGame(this.bot.name);
-        else
-            this.botRound();
     }
 
 }
