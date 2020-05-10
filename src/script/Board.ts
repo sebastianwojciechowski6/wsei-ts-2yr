@@ -6,9 +6,8 @@ export class Board {
     cells: Cell[][] = [];
     player: IPlayer;
 
-    constructor(player: IPlayer, cells: Cell[][]) {
+    constructor(player: IPlayer) {
         this.player = player;
-        this.cells = cells;
     }
 
     turnShipGenerator(ship: IShip) {
@@ -26,16 +25,17 @@ export class Board {
         return startingPoint;
     }
 
-    fillVerticalCells(x: number, y: number, size: number){
-        for(let i = x; i < (x + size); i++){
-            console.log(i);
-            this.cells[i][y].fill = true;
+    fillVerticalCells(startingX: number, startingY: number, size: number){
+        for(let i: number = startingX; i < (startingX + size); i++){
+
+            this.cells[i][startingY].fill = true;
         }
     }
 
-    fillHorizontalCells(x: number, y: number, size: number){
-        for(let i = x; i < (y + size); i++){
-            this.cells[x][i].fill = true;
+    fillHorizontalCells(startingX: number, startingY: number, size: number){
+        for(let i: number = startingY; i < (startingY + size); i++){
+
+            this.cells[startingX][i].fill = true;
         }
     }
 
@@ -43,18 +43,24 @@ export class Board {
         ships.forEach((e) => {
             this.turnShipGenerator(e);
             let startingPoint: Array<number> = this.positionGenerator();
+            console.log(e.turn);
 
             if(e.turn == 'vertical'){
                 while(startingPoint[0] + e.size >= 10){
                     startingPoint = this.positionGenerator();
+                    console.log(startingPoint[0]);
                 }
 
+                console.log(startingPoint[0], startingPoint[1], e.size);
                 this.fillVerticalCells(startingPoint[0], startingPoint[1], e.size);
             }
             else{
                 while(startingPoint[1] + e.size >= 10){
                     startingPoint = this.positionGenerator();
+                    console.log(startingPoint[1]);
                 }
+
+                console.log(startingPoint[0], startingPoint[1], e.size);
 
                 this.fillHorizontalCells(startingPoint[0], startingPoint[1], e.size);
             }
