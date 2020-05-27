@@ -24,21 +24,28 @@ export class Board {
 
         return startingPoint;
     }
-    //  TODO: BEZKOLIZYJNOŚĆ PRZY GENEROWANIU STATKÓW
 
-    fillVerticalCells(startingX: number, startingY: number, size: number){
-        for(let i: number = startingX; i < (startingX + size); i++){
-            this.cells[i][startingY].fill = true;
-            if(this.player.name == 'Human')
-                this.cells[i][startingY].element.className = 'player_cell_ship'
+    fillVerticalCells(startingPoint: Array<number>, size: number) {
+        for (let i: number = startingPoint[0]; i < (startingPoint[0] + size); i++) {
+            if (this.cells[i][startingPoint[1]].isFilled()) {
+                startingPoint = this.positionGenerator();
+                this.fillVerticalCells(startingPoint, size);
+            }
+            this.cells[i][startingPoint[1]].fill = true;
+            if (this.player.name == 'Human')
+                this.cells[i][startingPoint[1]].element.className = 'player_cell_ship'
         }
     }
 
-    fillHorizontalCells(startingX: number, startingY: number, size: number){
-        for(let i: number = startingY; i < (startingY + size); i++){
-            this.cells[startingX][i].fill = true;
-            if(this.player.name == 'Human')
-                this.cells[startingX][i].element.className = 'player_cell_ship'
+    fillHorizontalCells(startingPoint: Array<number>, size: number) {
+        for (let i: number = startingPoint[1]; i < (startingPoint[1] + size); i++) {
+            if (this.cells[startingPoint[0]][i].isFilled()) {
+                startingPoint = this.positionGenerator();
+                this.fillVerticalCells(startingPoint, size);
+            }
+            this.cells[startingPoint[0]][i].fill = true;
+            if (this.player.name == 'Human')
+                this.cells[startingPoint[0]][i].element.className = 'player_cell_ship'
         }
     }
 
@@ -46,21 +53,19 @@ export class Board {
         ships.forEach((e) => {
             this.turnShipGenerator(e);
             let startingPoint: Array<number> = this.positionGenerator();
-            console.log(e.turn);
 
-            if(e.turn == 'vertical'){
-                while(startingPoint[0] + e.size >= 10){
+            if (e.turn == 'vertical') {
+                while (startingPoint[0] + e.size >= 10) {
                     startingPoint = this.positionGenerator();
                 }
 
-                this.fillVerticalCells(startingPoint[0], startingPoint[1], e.size);
-            }
-            else{
-                while(startingPoint[1] + e.size >= 10){
+                this.fillVerticalCells(startingPoint, e.size);
+            } else {
+                while (startingPoint[1] + e.size >= 10) {
                     startingPoint = this.positionGenerator();
                 }
 
-                this.fillHorizontalCells(startingPoint[0], startingPoint[1], e.size);
+                this.fillHorizontalCells(startingPoint, e.size);
             }
         });
     }

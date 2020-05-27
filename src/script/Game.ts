@@ -50,14 +50,23 @@ export class Game {
         this.tablesContainer.appendChild(humanHTMLBoard);
         this.tablesContainer.appendChild(botHTMLBoard);
 
+        let generateButtonCounter: number = 0;
+
         this.generateShipsButton.addEventListener('click', () => {
+            if(generateButtonCounter > 1){
+                location.reload();
+                console.log('after reset')
+            }
+
             this.fillBoard(humanHTMLBoard, this.humanBoard.cells, this.human, 'player_row', 'player_cell_empty');
             this.fillBoard(botHTMLBoard, this.botBoard.cells, this.bot, 'bot_row', 'bot_cell_empty');
 
             this.humanBoard.insertShips(this.human.ships);
             this.botBoard.insertShips(this.bot.ships);
+            generateButtonCounter++;
         });
     }
+
 
     endGame(winner: string) {
         alert(winner + ' won!');
