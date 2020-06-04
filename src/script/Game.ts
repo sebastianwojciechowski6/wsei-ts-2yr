@@ -5,7 +5,6 @@ import {Cell} from "./Cell";
 import {IPlayer} from "./IPlayer";
 
 export class Game {
-    finished: boolean;
     bot: Bot = new Bot();
     botBoard: Board;
     human: Human = new Human();
@@ -37,20 +36,8 @@ export class Game {
     }
 
     constructor() {
-        this.finished = false;
-
-        let humanHTMLBoard: HTMLTableElement = document.createElement('table');
-        humanHTMLBoard.id = 'player_grid';
-
-        let botHTMLBoard: HTMLTableElement = document.createElement('table');
-        botHTMLBoard.id = 'bot_grid';
-
         this.humanBoard = new Board(this.human);
         this.botBoard = new Board(this.bot);
-
-        this.tablesContainer.appendChild(humanHTMLBoard);
-        this.tablesContainer.appendChild(botHTMLBoard);
-
 
         this.generateShipsButton.addEventListener('click', () => {
             this.fillBoard(humanHTMLBoard, this.humanBoard.cells, this.human, 'player_row', 'player_cell_empty');
@@ -63,7 +50,21 @@ export class Game {
         });
         this.resetButton.addEventListener('click', () => {
             location.reload();
-        })
+        });
+
+        let humanHTMLBoard: HTMLTableElement = document.createElement('table');
+        humanHTMLBoard.id = 'player_grid';
+
+        let botHTMLBoard: HTMLTableElement = document.createElement('table');
+        botHTMLBoard.id = 'bot_grid';
+
+
+
+        this.tablesContainer.appendChild(humanHTMLBoard);
+        this.tablesContainer.appendChild(botHTMLBoard);
+
+
+
     }
 
     endGame(winner: string) {
