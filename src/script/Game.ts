@@ -12,7 +12,8 @@ export class Game {
     humanBoard: Board;
 
     tablesContainer: HTMLDivElement = document.querySelector('.tables_container');
-    generateShipsButton: HTMLButtonElement = document.querySelector('#generate_ships');
+    generateShipsButton: HTMLButtonElement = document.querySelector('.generate_ships');
+    resetButton: HTMLButtonElement = document.querySelector('.reset_hidden');
 
     fillBoard(htmlBoard: HTMLTableElement, cellsBoard: Cell[][], player: IPlayer, rowClassName: string, cellClassName: string) {
         for (let i: number = 0; i < 10; i++) {
@@ -50,23 +51,20 @@ export class Game {
         this.tablesContainer.appendChild(humanHTMLBoard);
         this.tablesContainer.appendChild(botHTMLBoard);
 
-        let generateButtonCounter: number = 0;
 
         this.generateShipsButton.addEventListener('click', () => {
-            if(generateButtonCounter > 1){
-                location.reload();
-                console.log('after reset')
-            }
-
             this.fillBoard(humanHTMLBoard, this.humanBoard.cells, this.human, 'player_row', 'player_cell_empty');
             this.fillBoard(botHTMLBoard, this.botBoard.cells, this.bot, 'bot_row', 'bot_cell_empty');
 
             this.humanBoard.insertShips(this.human.ships);
             this.botBoard.insertShips(this.bot.ships);
-            generateButtonCounter++;
+            this.generateShipsButton.className = 'generate_ships_hidden';
+            this.resetButton.className = 'reset';
         });
+        this.resetButton.addEventListener('click', () => {
+            location.reload();
+        })
     }
-
 
     endGame(winner: string) {
         alert(winner + ' won!');
